@@ -1,0 +1,29 @@
+
+# Nom pour GitHub Actions
+name: Java CI with Gradle
+# Evènements déclancheur Toutes branches
+# on: [push]
+# Evènements déclancheur branches main et develop uniquement
+on:
+  push:
+    branches: [main, develop]
+
+# Liste des jobs
+jobs:
+  # Nom du job
+  build:
+    # Image docker
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+    - name: Build with Gradle
+      uses: gradle/gradle-build-action@2.4.0
+      with:
+        gradle-version: 7.6
+        arguments: build
